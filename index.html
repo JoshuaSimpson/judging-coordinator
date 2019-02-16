@@ -20,6 +20,10 @@
                 <label for="rounds">Number of times seen by judge</label>
                 <input type="text" class="form-control" id="rounds" placeholder="Judges">
             </div>
+            <div class="form-group">
+                    <label for="minutes">Number of minutes for judging</label>
+                    <input type="text" class="form-control" id="minutes" placeholder="Judges">
+            </div>
             <button onclick="calculate()" class="btn btn-primary">Submit</button>
         </div>
     </div>
@@ -32,6 +36,7 @@
         teams = document.getElementById('teams').value;
         judges = document.getElementById('judges').value;
         rounds = document.getElementById('rounds').value;
+        minutes = document.getElementById('minutes').value;
         output = document.getElementById("judge-groups");
 
         output.innerHTML = '';
@@ -63,7 +68,7 @@
         index = 1;
         judgeGroup.forEach(judge => {
             judgeSet = document.createElement("div");
-            judgeSet.classList.add('col-md-3');
+            judgeSet.classList.add('col-md-12');
 
             teamList = document.createElement("p");
             
@@ -72,7 +77,7 @@
                 teamList.innerHTML;
             })
 
-            judgeSet.innerHTML += "<b>Judge: " + index + '</b> (' + judge.length + ' teams)';
+            judgeSet.innerHTML += "<b>Judge: " + index + '</b> (' + judge.length + ' teams - ' + (minutes / judge.length) + ' minutes available for each team)';
             judgeSet.appendChild(teamList);
             output.appendChild(judgeSet); 
 
