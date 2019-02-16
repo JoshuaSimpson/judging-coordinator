@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Judging Coordinator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="teams">Number of teams</label>
+                <input type="text" class="form-control" id="teams" aria-describedby="teams" placeholder="Teams">
+            </div>
+            <div class="form-group">
+                <label for="judges">Number of judges</label>
+                <input type="text" class="form-control" id="judges" placeholder="Judges">
+            </div>
+            <div class="form-group">
+                <label for="rounds">Number of times seen by judge</label>
+                <input type="text" class="form-control" id="rounds" placeholder="Judges">
+            </div>
+            <button onclick="calculate()" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-12" id="judge-groups"></div>
+    </div>
+</body>
+<script>
+    function calculate() {
+        teams = document.getElementById('teams').value;
+        judges = document.getElementById('judges').value;
+        rounds = document.getElementById('rounds').value;
+        output = document.getElementById("judge-groups");
+
+        output.innerHTML = '';
+
+        judgeGroup = [];
+
+        for(var i = 0 ; i < judges ; i++) {
+            temp = [];
+            judgeGroup.push(temp);
+        }
+        console.log(judgeGroup);
+
+
+        judge = 0;
+
+        for(round = 1 ; round < (parseInt(rounds) + 1) ; round++) {
+            team = 1;
+            for(var team = 1 ; team < (parseInt(teams) + 1); team++) {
+                while(judgeGroup[judge].includes(team)) {
+                    judge++;
+                }
+                judgeGroup[judge].push(team);
+                judge++;
+                judge = judge % judges;
+            }
+        }
+
+        
+        index = 1;
+        judgeGroup.forEach(judge => {
+            judgeSet = document.createElement("div");
+            judgeSet.classList.add('col-md-3');
+
+            teamList = document.createElement("p");
+            
+            judge.forEach(teamNumber => {
+                teamList.innerHTML += teamNumber += ', ';
+                teamList.innerHTML;
+            })
+
+            judgeSet.innerHTML += "<b>Judge: " + index + '</b> (' + judge.length + ' teams)';
+            judgeSet.appendChild(teamList);
+            output.appendChild(judgeSet); 
+
+            index++;
+        });
+    }
+</script>
+</html>
