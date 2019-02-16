@@ -77,7 +77,7 @@
                 teamList.innerHTML;
             })
 
-            judgeSet.innerHTML += "<b>Judge: " + index + '</b> (' + judge.length + ' teams - ' + (minutes / judge.length) + ' minutes available for each team)';
+            judgeSet.innerHTML += "<b>Judge: " + index + '</b> (' + judge.length + ' teams - ' + (minutes / judge.length).toPrecision(2) + ' minutes available for each team)';
             judgeSet.appendChild(teamList);
             output.appendChild(judgeSet); 
 
